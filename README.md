@@ -2,8 +2,6 @@
 
 React component that views documents using Google Doc Viewer
 
-Lightweight, focussable and responses to the spacebar.
-
 ## How to use:
 
 ```js
