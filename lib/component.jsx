@@ -66,7 +66,7 @@ const Component = React.createClass({
         scrolling: PropTypes.string,
 
         /**
-         * The url of the document to be viewed.
+         * The url of the document to be viewed. May be absolute or relative.
          *
          * @property src
          * @type String
@@ -120,19 +120,24 @@ const Component = React.createClass({
         const props = this.props,
             propsClass = props.className;
 
+        source = props.src;
+        if (!IS_NODE && (source.substr(0, 7).toLowerCase()!=="http://") && (source.substr(0, 8).toLowerCase()!=="https://")) {
+           source = window.location.protocol + "//" + window.location.host + source;
+        }
         propsClass && (className+=" "+propsClass);
-        IS_NODE || (source=encodeURI(BASE_URL + props.src));
+        IS_NODE || (source=encodeURI(BASE_URL + source));
         if (props.allowFullScreen) {
-            fullscreenBtn = <div
-                className={MAIN_CLASS_PREFIX+"full-screen"}
-                onClick={this.fullScreen}
-            />;
+            fullscreenBtn = (
+                <div
+                    className={MAIN_CLASS_PREFIX+"full-screen"}
+                    onClick={this.fullScreen} />
+            );
         }
         return (
             <div className={className}>
                 <iframe
                     allowFullScreen={props.allowFullScreen}
-                    frameborder="0"
+                    frameBorder="0"
                     height="100%"
                     scrolling={props.scrolling}
                     src={source}
