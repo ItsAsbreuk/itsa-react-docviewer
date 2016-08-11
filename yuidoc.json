@@ -1,0 +1,14 @@
+{
+    "name": "itsa-react-docviewer",
+    "description": "React-Component: xxxxx",
+    "logo": "https://avatars0.githubusercontent.com/u/8314644?v=3&s=84",
+    "version": "0.0.1",
+    "options": {
+        "linkNatives": "true",
+        "attributesEmit": "false",
+        "selleck": "false",
+        "extension": ".js,.jsx",
+        "outdir": "./api",
+        "tabtospace":4
+    }
+}

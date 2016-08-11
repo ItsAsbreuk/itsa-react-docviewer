@@ -1,0 +1,146 @@
+{
+    "project": {
+        "name": "itsa-react-docviewer",
+        "description": "React-Component: xxxxx",
+        "logo": "https://avatars0.githubusercontent.com/u/8314644?v=3&s=84",
+        "version": "0.0.1"
+    },
+    "files": {
+        "lib/component.jsx": {
+            "name": "lib/component.jsx",
+            "modules": {
+                "component.jsx": 1
+            },
+            "classes": {
+                "Component": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "component.jsx": {
+            "name": "component.jsx",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Component": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "lib/component.jsx",
+            "line": 3,
+            "description": "React component that views documents using Google Doc Viewer.\n\n\n\n<i>Copyright (c) 2016 ItsAsbreuk - http://itsasbreuk.nl</i><br>\nNew BSD License - http://choosealicense.com/licenses/bsd-3-clause/",
+            "since": "15.0.0"
+        }
+    },
+    "classes": {
+        "Component": {
+            "name": "Component",
+            "shortname": "Component",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "component.jsx",
+            "namespace": "",
+            "file": "lib/component.jsx",
+            "line": 3,
+            "description": "React component that views documents using Google Doc Viewer.\n\n\n\n<i>Copyright (c) 2016 ItsAsbreuk - http://itsasbreuk.nl</i><br>\nNew BSD License - http://choosealicense.com/licenses/bsd-3-clause/"
+        }
+    },
+    "elements": {},
+    "classitems": [
+        {
+            "file": "lib/component.jsx",
+            "line": 39,
+            "description": "Allowed to be displayed into full screen mode, by calling `fullScreen()`",
+            "itemtype": "property",
+            "name": "allowFullScreen",
+            "type": "Boolean",
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 48,
+            "description": "Any class to be set on the main component.",
+            "itemtype": "property",
+            "name": "className",
+            "type": "String",
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 57,
+            "description": "Whether the browser should provide a scroll bar when needed.\nEither `auto`, `yes` or `no`",
+            "itemtype": "property",
+            "name": "scrolling",
+            "default": "\"auto\"",
+            "type": "String",
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 68,
+            "description": "The url of the document to be viewed.",
+            "itemtype": "property",
+            "name": "src",
+            "type": "String",
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 78,
+            "description": "componentDidMount will call `this.activatePlaces()`;",
+            "itemtype": "method",
+            "name": "componentDidMount",
+            "since": "0.0.1",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 88,
+            "description": "Will show the content into the full screen. Only if `props.allowFullScreen`===true.",
+            "itemtype": "method",
+            "name": "fullScreen",
+            "since": "0.0.1",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 98,
+            "description": "Defines the default props.",
+            "itemtype": "method",
+            "name": "getDefaultProps",
+            "since": "0.0.1",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 110,
+            "description": "React render-method --> renderes the Component.",
+            "itemtype": "method",
+            "name": "render",
+            "return": {
+                "description": "ReactComponent"
+            },
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        }
+    ],
+    "warnings": []
+}

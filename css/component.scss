@@ -1,0 +1,39 @@
+.itsa-docviewer {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.itsa-docviewer-full-screen {
+    width: 52px;
+    height: 47px;
+    background-color: rgb(130, 130, 130);
+    background-color: rgba(130, 130, 130, 0.6);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    cursor: default;
+    z-index: 1;
+    color: #FFF;
+}
+
+.itsa-docviewer-full-screen:hover {
+    background-color: rgb(130, 130, 130);
+}
+
+.itsa-docviewer-full-screen:before {
+    content: "\02F9\02FA";
+    font-size: 36px;
+    position: absolute;
+    left: 14px;
+    top: 6px;
+}
+
+.itsa-docviewer-full-screen:after {
+    content: "\02FB\02FC";
+    font-size: 36px;
+    position: absolute;
+    right: 14px;
+    bottom: 9px;
+}
