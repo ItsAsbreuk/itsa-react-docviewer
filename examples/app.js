@@ -20159,7 +20159,7 @@
 
 
 	// module
-	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  width: 52px;\n  height: 47px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen:before {\n  content: \"\\2F9\\2FA\";\n  font-size: 36px;\n  position: absolute;\n  left: 14px;\n  top: 6px; }\n\n.itsa-docviewer-full-screen:after {\n  content: \"\\2FB\\2FC\";\n  font-size: 36px;\n  position: absolute;\n  right: 14px;\n  bottom: 9px; }\n", ""]);
+	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  width: 52px;\n  height: 47px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen:before {\n  content: \"\\2F9\\2FA\";\n  font-size: 36px;\n  position: absolute;\n  left: 15px;\n  top: 0px; }\n\n.itsa-docviewer-full-screen:after {\n  content: \"\\2FB\\2FC\";\n  font-size: 36px;\n  position: absolute;\n  left: 15px;\n  bottom: 8px; }\n", ""]);
 
 	// exports
 
