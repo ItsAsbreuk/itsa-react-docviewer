@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ItsAsbreuk/COMPONENT_NAME.svg?branch=master)](https://travis-ci.org/ItsAsbreuk/COMPONENT_NAME)
+[![Build Status](https://travis-ci.org/ItsAsbreuk/itsa-react-docviewer.svg?branch=master)](https://travis-ci.org/ItsAsbreuk/itsa-react-docviewer)
 
 React component that views documents using Google Doc Viewer
 
