@@ -90,7 +90,7 @@
         {
             "file": "lib/component.jsx",
             "line": 68,
-            "description": "The url of the document to be viewed.",
+            "description": "The url of the document to be viewed. May be absolute or relative.",
             "itemtype": "property",
             "name": "src",
             "type": "String",

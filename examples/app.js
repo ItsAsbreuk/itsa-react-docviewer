@@ -20541,7 +20541,7 @@
 	        scrolling: PropTypes.string,
 
 	        /**
-	         * The url of the document to be viewed.
+	         * The url of the document to be viewed. May be absolute or relative.
 	         *
 	         * @property src
 	         * @type String
@@ -20599,20 +20599,23 @@
 	        var props = this.props,
 	            propsClass = props.className;
 
+	        source = props.src;
+	        if (!IS_NODE && source.substr(0, 7).toLowerCase() !== "http://" && source.substr(0, 8).toLowerCase() !== "https://") {
+	            source = window.location.protocol + "//" + window.location.host + source;
+	        }
 	        propsClass && (className += " " + propsClass);
-	        IS_NODE || (source = encodeURI(BASE_URL + props.src));
+	        IS_NODE || (source = encodeURI(BASE_URL + source));
 	        if (props.allowFullScreen) {
 	            fullscreenBtn = React.createElement("div", {
 	                className: MAIN_CLASS_PREFIX + "full-screen",
-	                onClick: this.fullScreen
-	            });
+	                onClick: this.fullScreen });
 	        }
 	        return React.createElement(
 	            "div",
 	            { className: className },
 	            React.createElement("iframe", {
 	                allowFullScreen: props.allowFullScreen,
-	                frameborder: "0",
+	                frameBorder: "0",
 	                height: "100%",
 	                scrolling: props.scrolling,
 	                src: source,

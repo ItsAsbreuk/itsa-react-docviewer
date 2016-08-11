@@ -32,7 +32,7 @@ describe("React Component", function () {
             <div className="itsa-docviewer">
                 <iframe
                     allowFullScreen={undefined}
-                    frameborder="0"
+                    frameBorder="0"
                     height="100%"
                     scrolling="auto"
                     src={undefined}
@@ -50,7 +50,7 @@ describe("React Component", function () {
             <div className="itsa-docviewer">
                 <iframe
                     allowFullScreen={true}
-                    frameborder="0"
+                    frameBorder="0"
                     height="100%"
                     scrolling="auto"
                     src={undefined}
@@ -72,7 +72,7 @@ describe("React Component", function () {
             <div className="itsa-docviewer">
                 <iframe
                     allowFullScreen={undefined}
-                    frameborder="0"
+                    frameBorder="0"
                     height="100%"
                     scrolling={true}
                     src={undefined}
@@ -90,7 +90,7 @@ describe("React Component", function () {
             <div className="itsa-docviewer dummy">
                 <iframe
                     allowFullScreen={undefined}
-                    frameborder="0"
+                    frameBorder="0"
                     height="100%"
                     scrolling="auto"
                     src={undefined}
