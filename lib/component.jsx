@@ -16,7 +16,7 @@
 
 const React = require("react"),
     ReactDom = require("react-dom"),
-    BASE_URL = "https://docs.google.com/viewer?embedded=true&toolbar=hide&url=",
+    BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
     MAIN_CLASS = "itsa-docviewer",
     MAIN_CLASS_PREFIX = MAIN_CLASS+"-",
     IS_NODE = require("itsa-utils").isNode,

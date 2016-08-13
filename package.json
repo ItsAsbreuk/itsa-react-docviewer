@@ -1,6 +1,6 @@
 {
   "name": "itsa-react-docviewer",
-  "version": "15.0.3",
+  "version": "15.0.4",
   "description": "React component that views documents using Google Doc Viewer",
   "author": [
     {

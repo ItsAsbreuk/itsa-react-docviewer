@@ -6,7 +6,7 @@ React component that views documents using Google Doc Viewer
 
 ```js
 const ReactDOM = require("react-dom"),
-    Component = require("itsa-react-docviewer/lib/component-styled.jsx");
+    Component = require("itsa-react-docviewer");
 
 const props = {
     allowFullScreen: true,
