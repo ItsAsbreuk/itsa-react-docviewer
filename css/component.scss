@@ -6,8 +6,11 @@
 }
 
 .itsa-docviewer-full-screen {
-    width: 52px;
-    height: 47px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
     background-color: rgb(130, 130, 130);
     background-color: rgba(130, 130, 130, 0.6);
     position: absolute;
@@ -23,17 +26,19 @@
 }
 
 .itsa-docviewer-full-screen:before {
-    content: "\02F9\02FA";
-    font-size: 36px;
+    content: "\2927";
+    font-size: 50px;
     position: absolute;
-    left: 15px;
-    top: 0px;
+    left: 6px;
+    bottom: 0px;
+    font-family: helvetica;
 }
 
 .itsa-docviewer-full-screen:after {
-    content: "\02FB\02FC";
-    font-size: 36px;
+    content: "\2929";
+    font-size: 50px;
     position: absolute;
-    left: 15px;
-    bottom: 8px;
+    left: 6px;
+    bottom: -2px;
+    font-family: helvetica;
 }

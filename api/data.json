@@ -55,7 +55,40 @@
     "classitems": [
         {
             "file": "lib/component.jsx",
-            "line": 39,
+            "line": 42,
+            "description": "componentDidMount will call `this.activatePlaces()`;",
+            "itemtype": "method",
+            "name": "componentDidMount",
+            "since": "0.0.1",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 52,
+            "description": "Will show the content into the full screen. Only if `props.allowFullScreen`===true.",
+            "itemtype": "method",
+            "name": "fullScreen",
+            "since": "0.0.1",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 62,
+            "description": "React render-method --> renderes the Component.",
+            "itemtype": "method",
+            "name": "render",
+            "return": {
+                "description": "ReactComponent"
+            },
+            "since": "15.0.0",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 107,
             "description": "Allowed to be displayed into full screen mode, by calling `fullScreen()`",
             "itemtype": "property",
             "name": "allowFullScreen",
@@ -66,7 +99,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 48,
+            "line": 116,
             "description": "Any class to be set on the main component.",
             "itemtype": "property",
             "name": "className",
@@ -77,66 +110,23 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 57,
+            "line": 125,
             "description": "Whether the browser should provide a scroll bar when needed.\nEither `auto`, `yes` or `no`",
             "itemtype": "property",
             "name": "scrolling",
             "default": "\"auto\"",
-            "type": "String",
+            "type": "String|Boolean",
             "since": "15.0.0",
             "class": "Component",
             "module": "component.jsx"
         },
         {
             "file": "lib/component.jsx",
-            "line": 68,
+            "line": 136,
             "description": "The url of the document to be viewed. May be absolute or relative.",
             "itemtype": "property",
             "name": "src",
             "type": "String",
-            "since": "15.0.0",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 78,
-            "description": "componentDidMount will call `this.activatePlaces()`;",
-            "itemtype": "method",
-            "name": "componentDidMount",
-            "since": "0.0.1",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 88,
-            "description": "Will show the content into the full screen. Only if `props.allowFullScreen`===true.",
-            "itemtype": "method",
-            "name": "fullScreen",
-            "since": "0.0.1",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 98,
-            "description": "Defines the default props.",
-            "itemtype": "method",
-            "name": "getDefaultProps",
-            "since": "0.0.1",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 110,
-            "description": "React render-method --> renderes the Component.",
-            "itemtype": "method",
-            "name": "render",
-            "return": {
-                "description": "ReactComponent"
-            },
             "since": "15.0.0",
             "class": "Component",
             "module": "component.jsx"

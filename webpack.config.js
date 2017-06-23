@@ -4,7 +4,6 @@ module.exports = {
         path: "./examples",
         filename: "app.js" // Template based on keys in entry above
     },
-
     module: {
         loaders: [
             {

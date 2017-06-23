@@ -99,11 +99,11 @@
 
 const React = require(&quot;react&quot;),
     ReactDom = require(&quot;react-dom&quot;),
-    BASE_URL = &quot;https://docs.google.com/viewer?embedded=true&amp;toolbar=hide&amp;url=&quot;,
+    BASE_URL = &quot;https://docs.google.com/viewer?embedded=true&amp;url=&quot;,
     MAIN_CLASS = &quot;itsa-docviewer&quot;,
     MAIN_CLASS_PREFIX = MAIN_CLASS+&quot;-&quot;,
     IS_NODE = require(&quot;itsa-utils&quot;).isNode,
-    PropTypes = React.PropTypes;
+    PropTypes = require(&quot;prop-types&quot;);
 
 // polyfill Element.requestFullScreen:
 if (!IS_NODE) {
@@ -116,48 +116,12 @@ if (!IS_NODE) {
 
 }
 
-const Component = React.createClass({
-
-    propTypes: {
-        /**
-         * Allowed to be displayed into full screen mode, by calling &#x60;fullScreen()&#x60;
-         *
-         * @property allowFullScreen
-         * @type Boolean
-         * @since 15.0.0
-        */
-        allowFullScreen: PropTypes.bool,
-
-        /**
-         * Any class to be set on the main component.
-         *
-         * @property className
-         * @type String
-         * @since 15.0.0
-        */
-        className: PropTypes.string,
-
-        /**
-         * Whether the browser should provide a scroll bar when needed.
-         * Either &#x60;auto&#x60;, &#x60;yes&#x60; or &#x60;no&#x60;
-         *
-         * @property scrolling
-         * @default &quot;auto&quot;
-         * @type String
-         * @since 15.0.0
-        */
-        scrolling: PropTypes.string,
-
-        /**
-         * The url of the document to be viewed. May be absolute or relative.
-         *
-         * @property src
-         * @type String
-         * @since 15.0.0
-        */
-        src: PropTypes.string.isRequired
-    },
-
+class Component extends React.Component {
+    constructor(props) {
+        super(props);
+        const instance = this;
+        instance.fullScreen = instance.fullScreen.bind(instance);
+    }
     /**
      * componentDidMount will call &#x60;this.activatePlaces()&#x60;;
      *
@@ -166,7 +130,7 @@ const Component = React.createClass({
      */
     componentDidMount() {
         this._iframeNode = ReactDom.findDOMNode(this).firstChild;
-    },
+    }
 
     /**
      * Will show the content into the full screen. Only if &#x60;props.allowFullScreen&#x60;===true.
@@ -176,19 +140,7 @@ const Component = React.createClass({
      */
     fullScreen() {
         this.props.allowFullScreen &amp;&amp; this._iframeNode.requestFullScreen &amp;&amp; this._iframeNode.requestFullScreen();
-    },
-
-    /**
-     * Defines the default props.
-     *
-     * @method getDefaultProps
-     * @since 0.0.1
-     */
-    getDefaultProps() {
-        return {
-            scrolling: &quot;auto&quot;
-        };
-    },
+    }
 
     /**
      * React render-method --&gt; renderes the Component.
@@ -199,10 +151,12 @@ const Component = React.createClass({
      */
     render() {
         let className = MAIN_CLASS,
-            source, fullscreenBtn;
+            source, fullscreenBtn, scrolling;
         const props = this.props,
             propsClass = props.className;
 
+        scrolling = props.scrolling;
+        (typeof scrolling===&#x27;boolean&#x27;) &amp;&amp; (scrolling=scrolling.toString());
         source = props.src;
         if (!IS_NODE &amp;&amp; (source.substr(0, 7).toLowerCase()!==&quot;http://&quot;) &amp;&amp; (source.substr(0, 8).toLowerCase()!==&quot;https://&quot;)) {
            source = window.location.protocol + &quot;//&quot; + window.location.host + source;
@@ -230,7 +184,51 @@ const Component = React.createClass({
         );
     }
 
-});
+}
+
+Component.propTypes = {
+    /**
+     * Allowed to be displayed into full screen mode, by calling &#x60;fullScreen()&#x60;
+     *
+     * @property allowFullScreen
+     * @type Boolean
+     * @since 15.0.0
+    */
+    allowFullScreen: PropTypes.bool,
+
+    /**
+     * Any class to be set on the main component.
+     *
+     * @property className
+     * @type String
+     * @since 15.0.0
+    */
+    className: PropTypes.string,
+
+    /**
+     * Whether the browser should provide a scroll bar when needed.
+     * Either &#x60;auto&#x60;, &#x60;yes&#x60; or &#x60;no&#x60;
+     *
+     * @property scrolling
+     * @default &quot;auto&quot;
+     * @type String|Boolean
+     * @since 15.0.0
+    */
+    scrolling: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+
+    /**
+     * The url of the document to be viewed. May be absolute or relative.
+     *
+     * @property src
+     * @type String
+     * @since 15.0.0
+    */
+    src: PropTypes.string.isRequired
+};
+
+Component.defaultProps = {
+    scrolling: &quot;auto&quot;
+};
 
 module.exports = Component;
 
