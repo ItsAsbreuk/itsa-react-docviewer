@@ -6,6 +6,7 @@ const React = require("react"),
 
 const props = {
     allowFullScreen: false,
+    showLoadingMsg: true,
     src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf"
 };
 

@@ -34,6 +34,7 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    onLoad={function noRefCheck() {}}
                     ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
@@ -53,6 +54,7 @@ describe("React Component", function () {
                     allowFullScreen={true}
                     frameBorder="0"
                     height="100%"
+                    onLoad={function noRefCheck() {}}
                     ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
@@ -76,6 +78,7 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    onLoad={function noRefCheck() {}}
                     ref={function noRefCheck() {}}
                     scrolling={true}
                     src={undefined}
@@ -95,11 +98,62 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    onLoad={function noRefCheck() {}}
                     ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
                     width="100%"
                 />
+            </div>
+        );
+        expect(actual).to.equalJSX(expected);
+    });
+
+    it("Rendering component with onload message", function () {
+        renderer.render(<Component showLoadingMsg={true} />);
+        const actual = renderer.getRenderOutput();
+        const expected = (
+            <div className="itsa-docviewer">
+                <iframe
+                    allowFullScreen={undefined}
+                    frameBorder="0"
+                    height="100%"
+                    onLoad={function noRefCheck() {}}
+                    ref={function noRefCheck() {}}
+                    scrolling="auto"
+                    src={undefined}
+                    width="100%"
+                />
+                <div className="itsa-docviewer-loading-msg">
+                    <div>
+                        loading...
+                    </div>
+                </div>
+            </div>
+        );
+        expect(actual).to.equalJSX(expected);
+    });
+
+    it("Rendering component with different onload message", function () {
+        renderer.render(<Component loadingMsg="busy..." showLoadingMsg={true} />);
+        const actual = renderer.getRenderOutput();
+        const expected = (
+            <div className="itsa-docviewer">
+                <iframe
+                    allowFullScreen={undefined}
+                    frameBorder="0"
+                    height="100%"
+                    onLoad={function noRefCheck() {}}
+                    ref={function noRefCheck() {}}
+                    scrolling="auto"
+                    src={undefined}
+                    width="100%"
+                />
+                <div className="itsa-docviewer-loading-msg">
+                    <div>
+                        busy...
+                    </div>
+                </div>
             </div>
         );
         expect(actual).to.equalJSX(expected);

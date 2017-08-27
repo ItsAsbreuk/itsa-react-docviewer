@@ -55,7 +55,7 @@
     "classitems": [
         {
             "file": "lib/component.jsx",
-            "line": 42,
+            "line": 45,
             "description": "Will show the content into the full screen. Only if `props.allowFullScreen`===true.",
             "itemtype": "method",
             "name": "fullScreen",
@@ -65,7 +65,17 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 52,
+            "line": 55,
+            "description": "Hides the \"load-message\" as specified by this.props.loadingMsg",
+            "itemtype": "method",
+            "name": "hideLoadMessage",
+            "since": "16.0.5",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 65,
             "description": "React render-method --> renderes the Component.",
             "itemtype": "method",
             "name": "render",
@@ -78,7 +88,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 98,
+            "line": 121,
             "description": "Allowed to be displayed into full screen mode, by calling `fullScreen()`",
             "itemtype": "property",
             "name": "allowFullScreen",
@@ -89,7 +99,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 107,
+            "line": 130,
             "description": "Any class to be set on the main component.",
             "itemtype": "property",
             "name": "className",
@@ -100,7 +110,19 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 116,
+            "line": 139,
+            "description": "The message that shows while the document gets loaded",
+            "itemtype": "property",
+            "name": "loadingMsg",
+            "default": "\"loading...\"",
+            "type": "String",
+            "since": "16.0.5",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 149,
             "description": "Whether the browser should provide a scroll bar when needed.\nEither `auto`, `yes` or `no`",
             "itemtype": "property",
             "name": "scrolling",
@@ -112,7 +134,19 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 127,
+            "line": 160,
+            "description": "Whether to show a message (this.props.loadingMsg) during document load",
+            "itemtype": "property",
+            "name": "showLoadingMsg",
+            "default": "false",
+            "type": "Boolean",
+            "since": "16.0.5",
+            "class": "Component",
+            "module": "component.jsx"
+        },
+        {
+            "file": "lib/component.jsx",
+            "line": 170,
             "description": "The url of the document to be viewed. May be absolute or relative.",
             "itemtype": "property",
             "name": "src",

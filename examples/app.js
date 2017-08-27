@@ -52,6 +52,7 @@
 
 	var props = {
 	    allowFullScreen: false,
+	    showLoadingMsg: true,
 	    src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf"
 	};
 
@@ -22114,7 +22115,7 @@
 
 
 	// module
-	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50px;\n  height: 50px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen::before {\n  content: \"\\2927\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: 0;\n  font-family: helvetica; }\n\n.itsa-docviewer-full-screen::after {\n  content: \"\\2929\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: -2px;\n  font-family: helvetica; }\n", ""]);
+	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50px;\n  height: 50px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen::before {\n  content: \"\\2927\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: 0;\n  font-family: helvetica; }\n\n.itsa-docviewer-full-screen::after {\n  content: \"\\2929\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: -2px;\n  font-family: helvetica; }\n\n.itsa-docviewer-loading-msg {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: absolute;\n  text-align: center;\n  font-size: 3em;\n  width: 100%;\n  height: 100%;\n  top: 0;\n  left: 0; }\n", ""]);
 
 	// exports
 
@@ -22477,6 +22478,9 @@
 	        var _this = _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
 
 	        var instance = _this;
+	        instance.state = {
+	            loading: true
+	        };
 	        instance.fullScreen = instance.fullScreen.bind(instance);
 	        return _this;
 	    }
@@ -22496,6 +22500,19 @@
 	        }
 
 	        /**
+	         * Hides the "load-message" as specified by this.props.loadingMsg
+	         *
+	         * @method hideLoadMessage
+	         * @since 16.0.5
+	         */
+
+	    }, {
+	        key: "hideLoadMessage",
+	        value: function hideLoadMessage() {
+	            this.setState({ loading: false });
+	        }
+
+	        /**
 	         * React render-method --> renderes the Component.
 	         *
 	         * @method render
@@ -22506,13 +22523,13 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
-	            var _this2 = this;
-
 	            var className = MAIN_CLASS,
 	                source = void 0,
 	                fullscreenBtn = void 0,
-	                scrolling = void 0;
-	            var props = this.props,
+	                scrolling = void 0,
+	                loadingMsg = void 0;
+	            var instance = this,
+	                props = instance.props,
 	                propsClass = props.className;
 
 	            scrolling = props.scrolling;
@@ -22526,7 +22543,18 @@
 	            if (props.allowFullScreen) {
 	                fullscreenBtn = React.createElement("div", {
 	                    className: MAIN_CLASS_PREFIX + "full-screen",
-	                    onClick: this.fullScreen });
+	                    onClick: instance.fullScreen });
+	            }
+	            if (instance.state.loading && props.showLoadingMsg) {
+	                loadingMsg = React.createElement(
+	                    "div",
+	                    { className: MAIN_CLASS_PREFIX + "loading-msg" },
+	                    React.createElement(
+	                        "div",
+	                        null,
+	                        props.loadingMsg
+	                    )
+	                );
 	            }
 	            return React.createElement(
 	                "div",
@@ -22535,13 +22563,15 @@
 	                    allowFullScreen: props.allowFullScreen,
 	                    frameBorder: "0",
 	                    height: "100%",
+	                    onLoad: instance.hideLoadMessage.bind(instance),
 	                    ref: function ref(node) {
-	                        return _this2._iframeNode = node;
+	                        return instance._iframeNode = node;
 	                    },
 	                    scrolling: props.scrolling,
 	                    src: source,
 	                    width: "100%" }),
-	                fullscreenBtn
+	                fullscreenBtn,
+	                loadingMsg
 	            );
 	        }
 	    }]);
@@ -22569,6 +22599,16 @@
 	    className: PropTypes.string,
 
 	    /**
+	     * The message that shows while the document gets loaded
+	     *
+	     * @property loadingMsg
+	     * @default "loading..."
+	     * @type String
+	     * @since 16.0.5
+	    */
+	    loadingMsg: PropTypes.string,
+
+	    /**
 	     * Whether the browser should provide a scroll bar when needed.
 	     * Either `auto`, `yes` or `no`
 	     *
@@ -22578,6 +22618,16 @@
 	     * @since 15.0.0
 	    */
 	    scrolling: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+
+	    /**
+	     * Whether to show a message (this.props.loadingMsg) during document load
+	     *
+	     * @property showLoadingMsg
+	     * @default false
+	     * @type Boolean
+	     * @since 16.0.5
+	    */
+	    showLoadingMsg: PropTypes.bool,
 
 	    /**
 	     * The url of the document to be viewed. May be absolute or relative.
@@ -22590,7 +22640,9 @@
 	};
 
 	Component.defaultProps = {
-	    scrolling: "auto"
+	    loadingMsg: "loading...",
+	    scrolling: "auto",
+	    showLoadingMsg: false
 	};
 
 	module.exports = Component;

@@ -119,6 +119,9 @@ class Component extends React.Component {
     constructor(props) {
         super(props);
         const instance = this;
+        instance.state = {
+            loading: true
+        };
         instance.fullScreen = instance.fullScreen.bind(instance);
     }
 
@@ -133,6 +136,16 @@ class Component extends React.Component {
     }
 
     /**
+     * Hides the &quot;load-message&quot; as specified by this.props.loadingMsg
+     *
+     * @method hideLoadMessage
+     * @since 16.0.5
+     */
+    hideLoadMessage() {
+        this.setState({loading: false});
+    }
+
+    /**
      * React render-method --&gt; renderes the Component.
      *
      * @method render
@@ -141,8 +154,9 @@ class Component extends React.Component {
      */
     render() {
         let className = MAIN_CLASS,
-            source, fullscreenBtn, scrolling;
-        const props = this.props,
+            source, fullscreenBtn, scrolling, loadingMsg;
+        const instance = this,
+            props = instance.props,
             propsClass = props.className;
 
         scrolling = props.scrolling;
@@ -157,7 +171,14 @@ class Component extends React.Component {
             fullscreenBtn = (
                 &lt;div
                     className={MAIN_CLASS_PREFIX+&quot;full-screen&quot;}
-                    onClick={this.fullScreen} /&gt;
+                    onClick={instance.fullScreen} /&gt;
+            );
+        }
+        if (instance.state.loading &amp;&amp; props.showLoadingMsg) {
+            loadingMsg = (
+                &lt;div className={MAIN_CLASS_PREFIX+&quot;loading-msg&quot;}&gt;
+                    &lt;div&gt;{props.loadingMsg}&lt;/div&gt;
+                &lt;/div&gt;
             );
         }
         return (
@@ -166,11 +187,13 @@ class Component extends React.Component {
                     allowFullScreen={props.allowFullScreen}
                     frameBorder=&quot;0&quot;
                     height=&quot;100%&quot;
-                    ref={node =&gt; this._iframeNode = node}
+                    onLoad={instance.hideLoadMessage.bind(instance)}
+                    ref={node =&gt; instance._iframeNode = node}
                     scrolling={props.scrolling}
                     src={source}
                     width=&quot;100%&quot; /&gt;
                 {fullscreenBtn}
+                {loadingMsg}
             &lt;/div&gt;
         );
     }
@@ -197,6 +220,16 @@ Component.propTypes = {
     className: PropTypes.string,
 
     /**
+     * The message that shows while the document gets loaded
+     *
+     * @property loadingMsg
+     * @default &quot;loading...&quot;
+     * @type String
+     * @since 16.0.5
+    */
+    loadingMsg: PropTypes.string,
+
+    /**
      * Whether the browser should provide a scroll bar when needed.
      * Either &#x60;auto&#x60;, &#x60;yes&#x60; or &#x60;no&#x60;
      *
@@ -206,6 +239,16 @@ Component.propTypes = {
      * @since 15.0.0
     */
     scrolling: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+
+    /**
+     * Whether to show a message (this.props.loadingMsg) during document load
+     *
+     * @property showLoadingMsg
+     * @default false
+     * @type Boolean
+     * @since 16.0.5
+    */
+    showLoadingMsg: PropTypes.bool,
 
     /**
      * The url of the document to be viewed. May be absolute or relative.
@@ -218,7 +261,9 @@ Component.propTypes = {
 };
 
 Component.defaultProps = {
-    scrolling: &quot;auto&quot;
+    loadingMsg: &quot;loading...&quot;,
+    scrolling: &quot;auto&quot;,
+    showLoadingMsg: false
 };
 
 module.exports = Component;
