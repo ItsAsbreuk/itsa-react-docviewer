@@ -56,16 +56,6 @@
         {
             "file": "lib/component.jsx",
             "line": 42,
-            "description": "componentDidMount will call `this.activatePlaces()`;",
-            "itemtype": "method",
-            "name": "componentDidMount",
-            "since": "0.0.1",
-            "class": "Component",
-            "module": "component.jsx"
-        },
-        {
-            "file": "lib/component.jsx",
-            "line": 52,
             "description": "Will show the content into the full screen. Only if `props.allowFullScreen`===true.",
             "itemtype": "method",
             "name": "fullScreen",
@@ -75,7 +65,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 62,
+            "line": 52,
             "description": "React render-method --> renderes the Component.",
             "itemtype": "method",
             "name": "render",
@@ -88,7 +78,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 107,
+            "line": 98,
             "description": "Allowed to be displayed into full screen mode, by calling `fullScreen()`",
             "itemtype": "property",
             "name": "allowFullScreen",
@@ -99,7 +89,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 116,
+            "line": 107,
             "description": "Any class to be set on the main component.",
             "itemtype": "property",
             "name": "className",
@@ -110,7 +100,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 125,
+            "line": 116,
             "description": "Whether the browser should provide a scroll bar when needed.\nEither `auto`, `yes` or `no`",
             "itemtype": "property",
             "name": "scrolling",
@@ -122,7 +112,7 @@
         },
         {
             "file": "lib/component.jsx",
-            "line": 136,
+            "line": 127,
             "description": "The url of the document to be viewed. May be absolute or relative.",
             "itemtype": "property",
             "name": "src",

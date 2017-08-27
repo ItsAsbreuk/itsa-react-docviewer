@@ -34,6 +34,7 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
                     width="100%"
@@ -52,6 +53,7 @@ describe("React Component", function () {
                     allowFullScreen={true}
                     frameBorder="0"
                     height="100%"
+                    ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
                     width="100%"
@@ -74,6 +76,7 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    ref={function noRefCheck() {}}
                     scrolling={true}
                     src={undefined}
                     width="100%"
@@ -92,6 +95,7 @@ describe("React Component", function () {
                     allowFullScreen={undefined}
                     frameBorder="0"
                     height="100%"
+                    ref={function noRefCheck() {}}
                     scrolling="auto"
                     src={undefined}
                     width="100%"

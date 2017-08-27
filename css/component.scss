@@ -25,16 +25,16 @@
     background-color: rgb(130, 130, 130);
 }
 
-.itsa-docviewer-full-screen:before {
+.itsa-docviewer-full-screen::before {
     content: "\2927";
     font-size: 50px;
     position: absolute;
     left: 6px;
-    bottom: 0px;
+    bottom: 0;
     font-family: helvetica;
 }
 
-.itsa-docviewer-full-screen:after {
+.itsa-docviewer-full-screen::after {
     content: "\2929";
     font-size: 50px;
     position: absolute;

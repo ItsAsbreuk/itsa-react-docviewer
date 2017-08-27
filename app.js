@@ -5,7 +5,7 @@ const React = require("react"),
     Component = require("./lib/component-styled.jsx");
 
 const props = {
-    allowFullScreen: true,
+    allowFullScreen: false,
     src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf"
 };
 

@@ -51,7 +51,7 @@
 	    Component = __webpack_require__(184);
 
 	var props = {
-	    allowFullScreen: true,
+	    allowFullScreen: false,
 	    src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf"
 	};
 
@@ -22114,7 +22114,7 @@
 
 
 	// module
-	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50px;\n  height: 50px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen:before {\n  content: \"\\2927\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: 0px;\n  font-family: helvetica; }\n\n.itsa-docviewer-full-screen:after {\n  content: \"\\2929\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: -2px;\n  font-family: helvetica; }\n", ""]);
+	exports.push([module.id, ".itsa-docviewer {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  position: relative; }\n\n.itsa-docviewer-full-screen {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  width: 50px;\n  height: 50px;\n  background-color: #828282;\n  background-color: rgba(130, 130, 130, 0.6);\n  position: absolute;\n  top: 2px;\n  left: 2px;\n  cursor: default;\n  z-index: 1;\n  color: #FFF; }\n\n.itsa-docviewer-full-screen:hover {\n  background-color: #828282; }\n\n.itsa-docviewer-full-screen::before {\n  content: \"\\2927\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: 0;\n  font-family: helvetica; }\n\n.itsa-docviewer-full-screen::after {\n  content: \"\\2929\";\n  font-size: 50px;\n  position: absolute;\n  left: 6px;\n  bottom: -2px;\n  font-family: helvetica; }\n", ""]);
 
 	// exports
 
@@ -22455,7 +22455,6 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var React = __webpack_require__(1),
-	    ReactDom = __webpack_require__(37),
 	    BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
 	    MAIN_CLASS = "itsa-docviewer",
 	    MAIN_CLASS_PREFIX = MAIN_CLASS + "-",
@@ -22481,28 +22480,16 @@
 	        instance.fullScreen = instance.fullScreen.bind(instance);
 	        return _this;
 	    }
+
 	    /**
-	     * componentDidMount will call `this.activatePlaces()`;
+	     * Will show the content into the full screen. Only if `props.allowFullScreen`===true.
 	     *
-	     * @method componentDidMount
+	     * @method fullScreen
 	     * @since 0.0.1
 	     */
 
 
 	    _createClass(Component, [{
-	        key: "componentDidMount",
-	        value: function componentDidMount() {
-	            this._iframeNode = ReactDom.findDOMNode(this).firstChild;
-	        }
-
-	        /**
-	         * Will show the content into the full screen. Only if `props.allowFullScreen`===true.
-	         *
-	         * @method fullScreen
-	         * @since 0.0.1
-	         */
-
-	    }, {
 	        key: "fullScreen",
 	        value: function fullScreen() {
 	            this.props.allowFullScreen && this._iframeNode.requestFullScreen && this._iframeNode.requestFullScreen();
@@ -22519,6 +22506,8 @@
 	    }, {
 	        key: "render",
 	        value: function render() {
+	            var _this2 = this;
+
 	            var className = MAIN_CLASS,
 	                source = void 0,
 	                fullscreenBtn = void 0,
@@ -22546,6 +22535,9 @@
 	                    allowFullScreen: props.allowFullScreen,
 	                    frameBorder: "0",
 	                    height: "100%",
+	                    ref: function ref(node) {
+	                        return _this2._iframeNode = node;
+	                    },
 	                    scrolling: props.scrolling,
 	                    src: source,
 	                    width: "100%" }),

@@ -98,7 +98,6 @@
 */
 
 const React = require(&quot;react&quot;),
-    ReactDom = require(&quot;react-dom&quot;),
     BASE_URL = &quot;https://docs.google.com/viewer?embedded=true&amp;url=&quot;,
     MAIN_CLASS = &quot;itsa-docviewer&quot;,
     MAIN_CLASS_PREFIX = MAIN_CLASS+&quot;-&quot;,
@@ -121,15 +120,6 @@ class Component extends React.Component {
         super(props);
         const instance = this;
         instance.fullScreen = instance.fullScreen.bind(instance);
-    }
-    /**
-     * componentDidMount will call &#x60;this.activatePlaces()&#x60;;
-     *
-     * @method componentDidMount
-     * @since 0.0.1
-     */
-    componentDidMount() {
-        this._iframeNode = ReactDom.findDOMNode(this).firstChild;
     }
 
     /**
@@ -176,6 +166,7 @@ class Component extends React.Component {
                     allowFullScreen={props.allowFullScreen}
                     frameBorder=&quot;0&quot;
                     height=&quot;100%&quot;
+                    ref={node =&gt; this._iframeNode = node}
                     scrolling={props.scrolling}
                     src={source}
                     width=&quot;100%&quot; /&gt;
