@@ -14,6 +14,8 @@
  * @since 15.0.0
 */
 
+require("itsa-jsext");
+
 const React = require("react"),
     BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
     MAIN_CLASS = "itsa-docviewer",
@@ -39,7 +41,30 @@ class Component extends React.Component {
         instance.state = {
             loading: true
         };
+        instance._ready = Promise.itsa_manage();
         instance.fullScreen = instance.fullScreen.bind(instance);
+        instance.handleSrcLoad = instance.handleSrcLoad.bind(instance);
+    }
+
+    componentDidUpdate(prevProps) {
+        const instance = this,
+            props = instance.props;
+        // console.warn('docviewer componentDidUpdate');
+        if (prevProps.src!==props.src) {
+            // console.warn('docviewer componentDidUpdate reset promise', prevProps.src, props.src);
+            instance._ready = Promise.itsa_manage();
+            if (props.src) {
+                instance.setState({
+                    loading: true
+                });
+            }
+            else {
+                instance.setState({loading: false}, function() {
+                    // console.warn('docviewer componentDidUpdate no src fulfilling promise');
+                    instance._ready.fulfill();
+                });
+            }
+        }
     }
 
     /**
@@ -52,14 +77,34 @@ class Component extends React.Component {
         this.props.allowFullScreen && this._iframeNode.requestFullScreen && this._iframeNode.requestFullScreen();
     }
 
+    print() { // return a Promise!
+        console.warn('docviewer.print', this.props.src);
+        const instance = this;
+        if (instance.props.src) {
+            console.warn('docviewer.printing waiting for src to be loaded');
+            return instance._ready.then(function() {
+                console.warn('docviewer.printing', instance.props.src);
+                const win = instance._iframeNode.contentWindow || instance._iframeNode;
+                if (typeof win.print==='function') {
+                    win.print();
+                }
+            });
+        }
+        return Promise.resolve();
+    }
+
     /**
      * Hides the "load-message" as specified by this.props.loadingMsg
      *
-     * @method hideLoadMessage
+     * @method handleSrcLoad
      * @since 16.0.5
      */
-    hideLoadMessage() {
-        this.setState({loading: false});
+    handleSrcLoad() {
+        const instance = this;
+        instance.setState({loading: false}, function() {
+            // console.warn('docviewer handleSrcLoad fulfilling promise', instance.props.src);
+            instance._ready.fulfill();
+        });
     }
 
     /**
@@ -79,11 +124,13 @@ class Component extends React.Component {
         scrolling = props.scrolling;
         (typeof scrolling==='boolean') && (scrolling=scrolling.toString());
         source = props.src;
-        if (!IS_NODE && (source.substr(0, 7).toLowerCase()!=="http://") && (source.substr(0, 8).toLowerCase()!=="https://")) {
-           source = window.location.protocol + "//" + window.location.host + source;
+        if (!IS_NODE && source) {
+            if ((source.substr(0, 7).toLowerCase()!=="http://") && (source.substr(0, 8).toLowerCase()!=="https://")) {
+               source = window.location.protocol + "//" + window.location.host + source;
+            }
+            source = encodeURI(BASE_URL + source);
         }
         propsClass && (className+=" "+propsClass);
-        IS_NODE || (source=encodeURI(BASE_URL + source));
         if (props.allowFullScreen) {
             fullscreenBtn = (
                 <div
@@ -99,12 +146,12 @@ class Component extends React.Component {
             );
         }
         return (
-            <div className={className}>
+            <div className={className} style={props.style}>
                 <iframe
                     allowFullScreen={props.allowFullScreen}
                     frameBorder="0"
                     height="100%"
-                    onLoad={instance.hideLoadMessage.bind(instance)}
+                    onLoad={instance.handleSrcLoad}
                     ref={node => instance._iframeNode = node}
                     scrolling={props.scrolling}
                     src={source}
@@ -174,7 +221,7 @@ Component.propTypes = {
      * @type String
      * @since 15.0.0
     */
-    src: PropTypes.string.isRequired
+    src: PropTypes.string
 };
 
 Component.defaultProps = {
