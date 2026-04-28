@@ -1,6 +1,7 @@
 /**
- * React component that views documents using Google Doc Viewer.
- *
+ * React component that views documents.
+ * Supports Google Doc Viewer for remote documents and native browser viewing
+ * for local/browser-compatible files (PDF, images, HTML, text, SVG).
  *
  *
  * <i>Copyright (c) 2016 ItsAsbreuk - http://itsasbreuk.nl</i><br>
@@ -20,9 +21,63 @@ import PropTypes from "prop-types";
 
 const IS_NODE = itsaUtils.isNode;
 
-const BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
+const GOOGLE_VIEWER_URL = "https://docs.google.com/viewer?embedded=true&url=",
   MAIN_CLASS = "itsa-docviewer",
-  MAIN_CLASS_PREFIX = MAIN_CLASS + "-";
+  MAIN_CLASS_PREFIX = MAIN_CLASS + "-",
+  BROWSER_NATIVE_EXTENSIONS = [
+    ".pdf",
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".gif",
+    ".bmp",
+    ".svg",
+    ".webp",
+    ".avif",
+    ".ico",
+    ".html",
+    ".htm",
+    ".txt",
+    ".csv",
+    ".xml",
+    ".json",
+    ".css",
+    ".js",
+    ".mp4",
+    ".webm",
+    ".ogg",
+    ".mp3",
+    ".wav",
+  ];
+
+/**
+ * Determines the effective viewer mode based on props and file extension.
+ *
+ * @method getViewerMode
+ * @param {String} viewer - The viewer prop value: 'auto', 'google', or 'browser'
+ * @param {String} src - The source URL
+ * @return {String} 'google' or 'browser'
+ * @private
+ * @since 17.1.0
+ */
+const getViewerMode = function (viewer, src) {
+  if (viewer === "google" || viewer === "browser") {
+    return viewer;
+  }
+  // auto mode: detect from file extension
+  if (src) {
+    // strip query string and hash, then get extension
+    const cleanPath = src.split("?")[0].split("#")[0].toLowerCase();
+    const dotIndex = cleanPath.lastIndexOf(".");
+    if (dotIndex !== -1) {
+      const ext = cleanPath.substring(dotIndex);
+      if (BROWSER_NATIVE_EXTENSIONS.indexOf(ext) !== -1) {
+        return "browser";
+      }
+    }
+  }
+  return "google";
+};
 
 // polyfill Element.requestFullscreen:
 if (!IS_NODE) {
@@ -141,15 +196,21 @@ class Component extends React.Component {
     scrolling = props.scrolling;
     typeof scrolling === "boolean" && (scrolling = scrolling.toString());
     source = props.src;
+
     if (!IS_NODE && source) {
-      if (
-        source.substr(0, 7).toLowerCase() !== "http://" &&
-        source.substr(0, 8).toLowerCase() !== "https://"
-      ) {
-        source =
-          window.location.protocol + "//" + window.location.host + source;
+      const viewerMode = getViewerMode(props.viewer, source);
+      if (viewerMode === "google") {
+        // Google Doc Viewer: needs an absolute, publicly accessible URL
+        if (
+          source.substr(0, 7).toLowerCase() !== "http://" &&
+          source.substr(0, 8).toLowerCase() !== "https://"
+        ) {
+          source =
+            window.location.protocol + "//" + window.location.host + source;
+        }
+        source = GOOGLE_VIEWER_URL + encodeURIComponent(source);
       }
-      source = BASE_URL + encodeURIComponent(source);
+      // else 'browser': pass source as-is to the iframe (works with local/relative paths)
     }
     propsClass && (className += " " + propsClass);
     if (props.allowFullScreen) {
@@ -255,12 +316,30 @@ Component.propTypes = {
    * @since 15.0.0
    */
   style: PropTypes.object,
+
+  /**
+   * Which viewer to use for rendering the document.
+   *
+   * - `"auto"` (default): Auto-detect based on file extension. Browser-native formats
+   *   (PDF, images, HTML, text, SVG, video, audio) use the browser's built-in viewer.
+   *   All other formats use Google Doc Viewer.
+   * - `"google"`: Always use Google Doc Viewer (requires publicly accessible URL).
+   * - `"browser"`: Always use the browser's native rendering via iframe
+   *   (works with local/relative paths, Blob URLs, and data URIs).
+   *
+   * @property viewer
+   * @default "auto"
+   * @type String
+   * @since 17.1.0
+   */
+  viewer: PropTypes.oneOf(["auto", "google", "browser"]),
 };
 
 Component.defaultProps = {
   loadingMsg: "loading...",
   scrolling: "auto",
   showLoadingMsg: false,
+  viewer: "auto",
 };
 
 export default Component;
