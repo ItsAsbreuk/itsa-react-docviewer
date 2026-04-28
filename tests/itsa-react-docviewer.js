@@ -1,23 +1,22 @@
 /*global describe, it, before, after */
 
-"use strict";
+import React from "react";
+import ReactDOM from "react-dom";
+import TestUtils from "react-dom/test-utils";
 
-const React = require("react");
-const ReactDOM = require("react-dom");
-const TestUtils = require("react-dom/test-utils");
-
-const chai = require("chai");
+import chai from "chai";
 const expect = chai.expect;
-const equalJSX = require("chai-equal-jsx");
+import equalJSX from "chai-equal-jsx";
 const renderer = TestUtils.createRenderer();
 
 chai.use(equalJSX);
 
-const Component = require("../lib/component.jsx");
+import Component from "../lib/component.jsx";
 
 describe("React Component", function () {
-  before(function () {
-    this.jsdom = require("jsdom-global")();
+  before(async function () {
+    const jsdomGlobal = await import("jsdom-global");
+    this.jsdom = jsdomGlobal.default();
   });
 
   after(function () {

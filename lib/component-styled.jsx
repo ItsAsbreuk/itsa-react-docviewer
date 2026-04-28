@@ -1,4 +1,2 @@
-"use strict";
-
-require("../css/component.scss");
-module.exports = require("./component.jsx");
+import "../css/component.scss";
+export { default } from "./component.jsx";

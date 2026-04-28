@@ -5,8 +5,8 @@ React component that views documents using Google Doc Viewer
 ## How to use:
 
 ```js
-const ReactDOM = require("react-dom"),
-  Component = require("itsa-react-docviewer");
+import ReactDOM from "react-dom";
+import Component from "itsa-react-docviewer";
 
 const props = {
   allowFullScreen: true,
@@ -24,7 +24,7 @@ ReactDOM.render(
 You need the right css in order to make use of `itsa-react-docviewer`. There are 2 options:
 
 1. You can use the css-files inside the `css`-folder.
-2. You can use: `Component = require("itsa-react-docviewer/lib/component-styled.jsx");` and build your project with `webpack`. This is needed, because you need the right plugin to handle a requirement of the `scss`-file.
+2. You can use: `import Component from 'itsa-react-docviewer/styled';` and build your project with `webpack` or `vite`. This is needed, because you need the right plugin to handle the `scss`-file.
 
 [View live example](http://projects.itsasbreuk.nl/react-components/itsa-docviewer/component.html)
 

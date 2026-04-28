@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * React component that views documents using Google Doc Viewer.
  *
@@ -14,14 +12,15 @@
  * @since 15.0.0
  */
 
-require("itsa-jsext");
+import "itsa-jsext";
 
-const React = require("react"),
-  BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
+import React from "react";
+import { isNode as IS_NODE } from "itsa-utils";
+import PropTypes from "prop-types";
+
+const BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
   MAIN_CLASS = "itsa-docviewer",
-  MAIN_CLASS_PREFIX = MAIN_CLASS + "-",
-  IS_NODE = require("itsa-utils").isNode,
-  PropTypes = require("prop-types");
+  MAIN_CLASS_PREFIX = MAIN_CLASS + "-";
 
 // polyfill Element.requestFullscreen:
 if (!IS_NODE) {
@@ -262,4 +261,4 @@ Component.defaultProps = {
   showLoadingMsg: false,
 };
 
-module.exports = Component;
+export default Component;

@@ -1,6 +1,7 @@
 {
   "name": "itsa-react-docviewer",
-  "version": "16.1.4",
+  "version": "17.0.0",
+  "type": "module",
   "description": "React component that views documents using Google Doc Viewer",
   "author": [
     {
@@ -23,11 +24,19 @@
     "doc",
     "viewer",
     "docviewer",
-    "google"
+    "google",
+    "esm",
+    "vite"
   ],
   "main": "./lib/component.jsx",
+  "module": "./lib/component.jsx",
+  "exports": {
+    ".": "./lib/component.jsx",
+    "./styled": "./lib/component-styled.jsx",
+    "./css/*": "./css/*"
+  },
   "engines": {
-    "node": ">=5"
+    "node": ">=14"
   },
   "directories": {
     "css": "./css",
