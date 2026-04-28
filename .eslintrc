@@ -45,12 +45,12 @@
     "space-in-parens": [2, "never"],
     "spaced-comment": [2, "always"],
     "strict": [2, "global"],
-    "wrap-regex": 2
+    "wrap-regex": 2,
   },
   "env": {
     "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
   },
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
@@ -58,9 +58,9 @@
     "ecmaVersion": 6,
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
-      "jsx": true
+      "jsx": true,
     },
-    "sourceType": "module"
+    "sourceType": "module",
   },
-  "plugins": ["react", "security"]
+  "plugins": ["react"],
 }

@@ -6,35 +6,33 @@ React component that views documents using Google Doc Viewer
 
 ```js
 const ReactDOM = require("react-dom"),
-    Component = require("itsa-react-docviewer");
+  Component = require("itsa-react-docviewer");
 
 const props = {
-    allowFullScreen: true,
-    src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf"
+  allowFullScreen: true,
+  src: "http://projects.itsasbreuk.nl/react-components/itsa-docviewer/example.pdf",
 };
 
 ReactDOM.render(
-    <Component {...props} />,
-    document.getElementById("component-container")
+  <Component {...props} />,
+  document.getElementById("component-container"),
 );
 ```
 
 ## About the css
 
-You need the right css in order to make use of `itsa-react-checkbox`. There are 2 options:
+You need the right css in order to make use of `itsa-react-docviewer`. There are 2 options:
 
 1. You can use the css-files inside the `css`-folder.
 2. You can use: `Component = require("itsa-react-docviewer/lib/component-styled.jsx");` and build your project with `webpack`. This is needed, because you need the right plugin to handle a requirement of the `scss`-file.
-
 
 [View live example](http://projects.itsasbreuk.nl/react-components/itsa-docviewer/component.html)
 
 [API](http://projects.itsasbreuk.nl/react-components/itsa-docviewer/api/)
 
-
 #### If you want to express your appreciation
 
 Feel free to donate to one of these addresses; my thanks will be great :)
 
-* Ether: 0xE096EBC2D19eaE7dA8745AA5D71d4830Ef3DF963
-* Bitcoin: 37GgB6MrvuxyqkQnGjwxcn7vkcdont1Vmg
+- Ether: 0xE096EBC2D19eaE7dA8745AA5D71d4830Ef3DF963
+- Bitcoin: 37GgB6MrvuxyqkQnGjwxcn7vkcdont1Vmg
