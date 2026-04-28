@@ -15,8 +15,10 @@
 import "itsa-jsext";
 
 import React from "react";
-import { isNode as IS_NODE } from "itsa-utils";
+import itsaUtils from "itsa-utils";
 import PropTypes from "prop-types";
+
+const IS_NODE = itsaUtils.isNode;
 
 const BASE_URL = "https://docs.google.com/viewer?embedded=true&url=",
   MAIN_CLASS = "itsa-docviewer",
