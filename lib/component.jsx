@@ -97,6 +97,7 @@ class Component extends React.Component {
     const instance = this;
     instance.state = {
       loading: true,
+      blobUrl: null, // holds the blob URL for browser-mode viewing
     };
     instance._mounted = true;
     instance._ready = Promise.itsa_manage();
@@ -104,17 +105,28 @@ class Component extends React.Component {
     instance.handleSrcLoad = instance.handleSrcLoad.bind(instance);
   }
 
+  componentDidMount() {
+    this._fetchBlobIfNeeded();
+  }
+
   componentDidUpdate(prevProps) {
     const instance = this,
       props = instance.props;
-    if (prevProps.src !== props.src) {
+    if (prevProps.src !== props.src || prevProps.viewer !== props.viewer) {
+      instance._revokeBlobUrl();
       instance._ready = Promise.itsa_manage();
       if (props.src) {
-        instance.setState({
-          loading: true,
-        });
+        instance.setState(
+          {
+            loading: true,
+            blobUrl: null,
+          },
+          function () {
+            instance._fetchBlobIfNeeded();
+          },
+        );
       } else {
-        instance.setState({ loading: false }, function () {
+        instance.setState({ loading: false, blobUrl: null }, function () {
           instance._ready.fulfill();
         });
       }
@@ -123,6 +135,72 @@ class Component extends React.Component {
 
   componentWillUnmount() {
     this._mounted = false;
+    this._revokeBlobUrl();
+  }
+
+  /**
+   * Revokes the current blob URL to free memory.
+   *
+   * @method _revokeBlobUrl
+   * @private
+   * @since 17.2.1
+   */
+  _revokeBlobUrl() {
+    if (this.state.blobUrl) {
+      // Strip any fragment (e.g. #filename.pdf) before revoking
+      URL.revokeObjectURL(this.state.blobUrl.split("#")[0]);
+    }
+  }
+
+  /**
+   * Fetches the document as a blob and creates a blob URL when in browser mode.
+   * This bypasses X-Frame-Options and Content-Security-Policy restrictions
+   * that prevent documents from being loaded directly in iframes.
+   *
+   * @method _fetchBlobIfNeeded
+   * @private
+   * @since 17.2.1
+   */
+  _fetchBlobIfNeeded() {
+    const instance = this,
+      props = instance.props,
+      src = props.src;
+
+    if (IS_NODE || !src) return;
+
+    const viewerMode = getViewerMode(props.viewer, src);
+    if (viewerMode !== "browser") return;
+
+    // Fetch the file as a blob to bypass X-Frame-Options / CSP framing restrictions
+    fetch(src)
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error("Failed to fetch document (" + response.status + ")");
+        }
+        return response.blob();
+      })
+      .then(function (blob) {
+        if (!instance._mounted) {
+          return;
+        }
+        const rawBlobUrl = URL.createObjectURL(blob);
+        // Extract filename from the source URL and append as fragment
+        // so the browser's built-in PDF viewer can display it
+        const urlPath = src.split("?")[0].split("#")[0];
+        const fileName = urlPath.substring(urlPath.lastIndexOf("/") + 1);
+        const blobUrl = fileName ? rawBlobUrl + "#" + fileName : rawBlobUrl;
+        instance.setState({ blobUrl: blobUrl });
+      })
+      .catch(function (err) {
+        // Fallback: use the original URL directly (may still work if no framing restrictions)
+        console.warn(
+          "itsa-react-docviewer: blob fetch failed, falling back to direct URL:",
+          err.message,
+        );
+        if (instance._mounted) {
+          instance.setState({ blobUrl: null });
+        }
+      });
   }
 
   /**
@@ -209,8 +287,13 @@ class Component extends React.Component {
             window.location.protocol + "//" + window.location.host + source;
         }
         source = GOOGLE_VIEWER_URL + encodeURIComponent(source);
+      } else {
+        // 'browser' mode: use blob URL if available (bypasses X-Frame-Options / CSP),
+        // otherwise fall back to the original source URL
+        if (instance.state.blobUrl) {
+          source = instance.state.blobUrl;
+        }
       }
-      // else 'browser': pass source as-is to the iframe (works with local/relative paths)
     }
     propsClass && (className += " " + propsClass);
     if (props.allowFullScreen) {
